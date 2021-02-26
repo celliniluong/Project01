@@ -8,7 +8,7 @@
 ***********************************************************************************/
 
 // Global Variables
-var gDebugMode = true;
+var gDebugMode = false;
 var images = [];
 var drawFunction;
 var gTextOffset = 20;
@@ -35,6 +35,7 @@ function preload() {
 
   fontThin = loadFont('assets/FontThin.ttf');
   fontBold = loadFont('assets/FontBold.otf');
+  fontThinner = loadFont('assets/fontThinner.ttf');
   
 }
 
@@ -45,7 +46,7 @@ function setup() {
 
   // Setting colors
   tan = color(239, 233, 225);
-  blue = color(23, 103, 44);
+  blue = color(23, 103, 144);
   red = color(241, 92, 77);
   yellow = color(244, 208, 70);
   purple = color(97, 27, 54);
@@ -60,7 +61,7 @@ function setup() {
   textSize(24);
 
   // Setting Splash as initial screen
-  drawFunction = drawQuestionOne;
+  drawFunction = drawInstructions;
 }
 
 // Background, Debug, Calling Simple States
@@ -75,9 +76,10 @@ function draw() {
   drawFunction();
 }
 
-//-- drawOne() will draw the image at index 0 from the array
-drawQuestionOne = function() {
+// -- Drawing out the question screens
 
+// Q1
+drawQuestionOne = function() {
   // Answer Outlines
    strokeWeight(1);
    fill(tan);
@@ -88,14 +90,14 @@ drawQuestionOne = function() {
   // Question Number
    strokeWeight(0);
    textSize(32);
-   fill(purple);
-   fill(0);
+   fill(blue);
    textAlign(CENTER);
    text("QUESTION ONE", midX, midY - 200);
 
    // Key Selection
-   text("Press A", midX - 240, midY + 160);
-   text("Press B", midX + 240, midY + 160);
+   fill(red);
+   text("Press A", midX - 240, midY + 156);
+   text("Press B", midX + 240, midY + 156);
 
    // Question
    fill(0);
@@ -104,56 +106,218 @@ drawQuestionOne = function() {
 
    // Answer Choices
    textSize(56);
-   text("Myself", midX - 240, midY + 100);
-   text("Others", midX + 240, midY + 100);
-
-
+   text("Myself", midX - 240, midY + 104);
+   text("Others", midX + 240, midY + 104);
 }
 
-//-- drawTwo() will draw the image at index 1 from the array
+// Q2
 drawQuestionTwo = function() {
+  // Answer Outlines
+   strokeWeight(1);
+   fill(tan);
+   stroke(yellow);
+   rect(midX - 420, midY + 26, 360, 180);
+   rect(midX + 60, midY + 26, 360, 180);
 
-   fill(240,120,0);
-   text("Q2", width/2, height - gTextOffset);
+  // Question Number
+   strokeWeight(0);
+   textSize(32);
+   fill(blue);
+   textAlign(CENTER);
+   text("QUESTION TWO", midX, midY - 200);
+
+   // Key Selection
+   fill(red);
+   text("Press C", midX - 240, midY + 156);
+   text("Press D", midX + 240, midY + 156);
+
+   // Question
+   fill(0);
+   textSize(70);
+   text("I have my coffee in the ___ room.", midX, midY - 90);
+
+   // Answer Choices
+   textSize(56);
+   text("Dining", midX - 240, midY + 104);
+   text("Living", midX + 240, midY + 104);
 }
 
-//-- drawOne() will draw the image at index 2 from the array
+//Q3 - A
 drawQuestionThreeA = function() {
-  
-   fill(40,230,120);
-   text("Q3a", width/2, height - gTextOffset);
+  // Answer Outlines
+   strokeWeight(1);
+   fill(tan);
+   stroke(yellow);
+   rect(midX - 420, midY + 26, 360, 180);
+   rect(midX + 60, midY + 26, 360, 180);
+
+  // Question Number
+   strokeWeight(0);
+   textSize(32);
+   fill(blue);
+   textAlign(CENTER);
+   text("QUESTION THREE", midX, midY - 200);
+
+   // Key Selection
+   fill(red);
+   text("Press 1", midX - 240, midY + 156);
+   text("Press 2", midX + 240, midY + 156);
+
+   // Question
+   fill(0);
+   textSize(70);
+   text("I prefer a ___ design.", midX, midY - 90);
+
+   // Answer Choices
+   textSize(56);
+   text("Statement", midX - 240, midY + 104);
+   text("Simple", midX + 240, midY + 104);
 }
 
-//-- drawOne() will draw the image at index 3 from the array
+//Q3 - B
 drawQuestionThreeB = function() {
+  // Answer Outlines
+   strokeWeight(1);
+   fill(tan);
+   stroke(yellow);
+   rect(midX - 420, midY + 26, 360, 180);
+   rect(midX + 60, midY + 26, 360, 180);
 
-   fill(255,255,178);
-   text("Q3b", width/2, height - gTextOffset);
+  // Question Number
+   strokeWeight(0);
+   textSize(32);
+   fill(blue);
+   textAlign(CENTER);
+   text("QUESTION THREE", midX, midY - 200);
+
+  // Key Selection
+   fill(red);
+   text("Press X", midX - 240, midY + 156);
+   text("Press Y", midX + 240, midY + 156);
+
+  // Question
+   fill(0);
+   textSize(70);
+   text("My style is more ___.", midX, midY - 90);
+
+  // Answer Choices
+   textSize(56);
+   text("Industrial", midX - 240, midY + 104);
+   text("Elegant", midX + 240, midY + 104);
 }
 
 //-- Drawing the final results page: Lounge, Fiberglass, Wire, LCW
+
+// Personality Type - Lounge
 drawLounge = function() {
+   image(images[3], midX - 312, midY);
 
-   fill(230,50,50);
-   text("Lounge", width/2, height - gTextOffset);
+   // H1
+   fill(0);
+   textFont('FontBold');
+   textSize(64);
+   textAlign(LEFT);
+
+   text("Eames Lounge Chair + Ottoman", midX + 2, midY - 182, 520, 500);
+
+  // H3
+   fill(purple);
+   textFont('FontThin');
+   textSize(30);
+   textAlign(LEFT);
+
+   text("Your personality type is a match for:", midX + 2 , midY - 214);
+
+   // H2
+   fill(0);
+   textLeading(44);
+
+   let t = "The powerful soloist. The Eames Lounge Chair has the ability to complement any interior with its soft, yet sleek build. A truly timeless piece that proves comfort and style do not have to be mutually exclusive.";
+   text(t, midX + 2, midY - 4, 580, 550);
 }
 
+// Personality Type - Fiberglass
 drawFiberglass = function() {
+  image(images[2], midX - 320, midY);
 
-   fill(230,50,50);
-   text("Fiberglass", width/2, height - gTextOffset);
+  // H1
+   fill(0);
+   textFont('FontBold');
+   textSize(64);
+   textAlign(LEFT);
+
+   text("Eames Molded Fiberglass Chair", midX - 10, midY - 182, 520, 500);
+
+  // H3
+   fill(blue);
+   textFont('FontThin');
+   textSize(30);
+   textAlign(LEFT);
+
+   text("Your personality type is a match for:", midX - 10 , midY - 214);
+
+   // H2
+   fill(0);
+   textLeading(44);
+
+   let t = "An iconic design. The Molded Fiberglass Chair charts the Eameses’ fascination with emerging materials. This legendary design will bring sculptural integrity to any room or corner.";
+   text(t, midX - 10, midY - 4, 580, 550);
 }
 
+// Personality Type - Wire
 drawWire = function() {
+image(images[0], midX - 320, midY);
 
-   fill(230,50,50);
-   text("Wire", width/2, height - gTextOffset);
+  // H1
+   fill(0);
+   textFont('FontBold');
+   textSize(64);
+   textAlign(LEFT);
+
+   text("Eames Wire Chair w/ Bikini Pad", midX - 10, midY - 182, 580, 500);
+
+  // H3
+   fill(red);
+   textFont('FontThin');
+   textSize(30);
+   textAlign(LEFT);
+
+   text("Your personality type is a match for:", midX - 10 , midY - 214);
+
+   // H2
+   fill(0);
+   textLeading(44);
+
+   let t = "Minimal and masculine. The Eames Wire Chair w/ Bikini Pad adds an industrial touch to any open space. Its permeable nature and soft padding form a harmonic balance.";
+   text(t, midX - 10, midY - 4, 580, 550);
 }
 
+// Personality Type - LCW
 drawLCW = function() {
+image(images[1], midX - 320, midY);
 
-   fill(230,50,50);
-   text("LCW", width/2, height - gTextOffset);
+  // H1
+   fill(0);
+   textFont('FontBold');
+   textSize(64);
+   textAlign(LEFT);
+
+   text("Eames Molded Plywood LCW", midX - 10, midY - 182, 580, 500);
+  
+  // H3
+   fill(yellow);
+   textFont('FontThin');
+   textSize(30);
+   textAlign(LEFT);
+
+   text("Your personality type is a match for:", midX - 10 , midY - 214);
+
+   // H2
+   fill(0);
+   textLeading(44);
+
+   let t = "Molded magnificence. Low-slung and expertly crafted, the LCW cradles you in a comfortable position. The flat planes and curvaceous nature bring an elegant simplicity to any room.";
+   text(t, midX - 10, midY - 4, 540, 550);
 }
 //-- drawSplash() will draw the image at index 4 from the array
 drawSplash = function() {
@@ -195,19 +359,19 @@ function keyTyped() {
   }
 
   if( drawFunction === drawQuestionThreeA ) {
-    if(key === 'e') {
+    if(key === '1') {
       drawFunction = drawLounge;
     }
-    else if(key === 'f') {
+    else if(key === '2') {
       drawFunction = drawFiberglass;
     }
   }
 
   if( drawFunction === drawQuestionThreeB ) {
-    if(key === 'g') {
+    if(key === 'x') {
       drawFunction = drawWire;
     }
-    else if(key === 'h') {
+    else if(key === 'y') {
       drawFunction = drawLCW;
     }
   }
