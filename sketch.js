@@ -8,7 +8,7 @@
 ***********************************************************************************/
 
 // Global Variables
-var gDebugMode = false;
+var gDebugMode = true;
 var images = [];
 var drawFunction;
 var gTextOffset = 20;
@@ -61,7 +61,7 @@ function setup() {
   textSize(24);
 
   // Setting Splash as initial screen
-  drawFunction = drawInstructions;
+  drawFunction = drawWire;
 }
 
 // Background, Debug, Calling Simple States
@@ -238,7 +238,7 @@ drawLounge = function() {
 
 // Personality Type - Fiberglass
 drawFiberglass = function() {
-  image(images[2], midX - 320, midY);
+   image(images[2], midX - 320, midY);
 
   // H1
    fill(0);
@@ -266,7 +266,7 @@ drawFiberglass = function() {
 
 // Personality Type - Wire
 drawWire = function() {
-image(images[0], midX - 320, midY);
+   image(images[0], midX - 300, midY);
 
   // H1
    fill(0);
@@ -274,7 +274,7 @@ image(images[0], midX - 320, midY);
    textSize(64);
    textAlign(LEFT);
 
-   text("Eames Wire Chair w/ Bikini Pad", midX - 10, midY - 182, 580, 500);
+   text("Eames Wire Chair w/ Bikini Pad", midX - 10, midY - 142, 580, 500);
 
   // H3
    fill(red);
@@ -282,19 +282,19 @@ image(images[0], midX - 320, midY);
    textSize(30);
    textAlign(LEFT);
 
-   text("Your personality type is a match for:", midX - 10 , midY - 214);
+   text("Your personality type is a match for:", midX - 10 , midY - 174);
 
    // H2
    fill(0);
    textLeading(44);
 
    let t = "Minimal and masculine. The Eames Wire Chair w/ Bikini Pad adds an industrial touch to any open space. Its permeable nature and soft padding form a harmonic balance.";
-   text(t, midX - 10, midY - 4, 580, 550);
+   text(t, midX - 10, midY + 24, 580, 550);
 }
 
 // Personality Type - LCW
 drawLCW = function() {
-image(images[1], midX - 320, midY);
+   image(images[1], midX - 320, midY);
 
   // H1
    fill(0);
@@ -319,17 +319,53 @@ image(images[1], midX - 320, midY);
    let t = "Molded magnificence. Low-slung and expertly crafted, the LCW cradles you in a comfortable position. The flat planes and curvaceous nature bring an elegant simplicity to any room.";
    text(t, midX - 10, midY - 4, 540, 550);
 }
-//-- drawSplash() will draw the image at index 4 from the array
+
+// Splash Screen
 drawSplash = function() {
+   
+   // Eames Header
    fill(0);
-   text("Splash", width/2, height - gTextOffset);
+   textAlign(RIGHT);
+   textFont('FontBold');
+   textSize(180);
+
+   text("EAMES", midX - 20, midY + 40);
+
+   // Description
+   textAlign(LEFT);
+   textFont('fontThin');
+   textSize(64);
+
+   let t = "A personality test for chair enthusiast";
+   text(t, midX + 20, midY - 90, 550, 300);
+
+   // Instructions
+   textSize(32);
+   fill(red);
+   text("Click this screen to CONTINUE", midX + 20, midY + 110);
 }
 
+// Quote Screem
 drawQuote = function() {
+   // Row of chair images
+   image(images[4], midX - 350, midY - 140);
+   image(images[5], midX - 125, midY - 140);
+   image(images[6], midX + 125, midY - 140);
+   image(images[7], midX + 350, midY - 140);
+
+   // Quote
+   textAlign(CENTER);
    fill(0);
-   text("Quote", width/2, height - gTextOffset);
+   textSize(70);
+   text("The details are not the details. They make the design.", midX - 500, midY, 990, 600);
+
+   // Instruction
+   textSize(32);
+   fill(red);
+   text("Click this screen for INSTRUCTIONS", midX, midY + 216);
 }
 
+// Instruction Screen
 drawInstructions = function() {
   fill(0);
   text("Instructions", width/2, height - gTextOffset);
@@ -396,5 +432,7 @@ function mousePressed() {
 function drawDebugInfo() {
   fill(255);
   noStroke()
+  textSize(32);
+  textAlign(LEFT);
   text("x: " + mouseX + "  Y: " + mouseY, 100, height - 60);
 }
