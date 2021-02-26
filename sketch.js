@@ -1,158 +1,236 @@
 /***********************************************************************************
-	SimpleStateMachine - TEMPLATE
-	by Scott Kildall
+	Projec01 - Eames Personality Test
+	by Cellini Luong
 
-	Template:
-
-	(1) Add your own PNG files in the assets folder. Make sure they match the names ***exactly*** of the existing PNGs.
-	(2) Add custom drawing code to drawSplash(), drawOne(), drawTwo(), drawThree(), drawFour(), drawFive()
-	(3) You can add your own interfaces - keys, mouse events, etc in the Interfaces section
-
-	Also start your localhost before running this, otherwise no PNGs will display
-
-------------------------------------------------------------------------------------
-	The way it works — you don't need to know this for the template use
-	* array of images gets loaded at startup
-	* drawFunction is a VARIABLE that points to a function varible name
-	* drawOne(), drawTwo(), etc. are set to be functions.
-	* the the keys 1-5 will change the drawFunction variable
-  * starts with drawSplash and waits for a mousePressed event
-  * adds a key, 's' to return to the splash screen
-
-------------------------------------------------------------------------------------
-	Notes:
-	- a more advanced state machine with use array-indexing variables for each of
-		images the draw functions, but this is just for illustrative purposes
-
-	- even more advanced will be to put the draw functions into an array, would
-		be helpful for randomizing, go to the next function, etc
-
-	- next step after that would be to put interfaces into an array that maps to
-		the functions
-
+  By using simple states, I will create a non-linear interaction taking users through a personality test to
+  determine which Eames chair style matches their personality the best.
 
 ***********************************************************************************/
 
-// Array of images
+// Global Variables
+var gDebugMode = true;
 var images = [];
-
-// variable that is a function 
 var drawFunction;
-
-// offset from bottom of screen
 var gTextOffset = 20;
+
+var midX;
+var midY;
+
+var tan, blue, red, yellow, purple;
+
+var fontThin;
+var fontBold;
+
 
 // load all images into an array
 function preload() {
-  images[0] = loadImage('assets/one.png');
-  images[1] = loadImage('assets/two.png');
-  images[2] = loadImage('assets/three.png');
-  images[3] = loadImage('assets/four.png');
-  images[4] = loadImage('assets/five.png');
-  images[5] = loadImage('assets/splash.png');
+  images[0] = loadImage('assets/Wire.png');
+  images[1] = loadImage('assets/LCW.png');
+  images[2] = loadImage('assets/Fiberglass.png');
+  images[3] = loadImage('assets/Lounge.png');
+  images[4] = loadImage('assets/SWire.png');
+  images[5] = loadImage('assets/SLCW.png');
+  images[6] = loadImage('assets/SFiberglass.png');
+  images[7] = loadImage('assets/SLounge.png');
+
+  fontThin = loadFont('assets/FontThin.ttf');
+  fontBold = loadFont('assets/FontBold.otf');
+  
 }
 
 // Center drawing, drawFunction will be one for default
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  textFont('fontThin');
+
+  // Setting colors
+  tan = color(239, 233, 225);
+  blue = color(23, 103, 44);
+  red = color(241, 92, 77);
+  yellow = color(244, 208, 70);
+  purple = color(97, 27, 54);
+
+  // Setting Variables
+  midX = windowWidth/2;
+  midY = windowHeight/2;
 
   // Center our drawing objects
   imageMode(CENTER);
   textAlign(CENTER);
   textSize(24);
 
-  // set to one for startup
-  drawFunction = drawSplash;
+  // Setting Splash as initial screen
+  drawFunction = drawQuestionOne;
 }
 
-// Very simple, sets the background color and calls your state machine function
+// Background, Debug, Calling Simple States
 function draw() {
-  background(192);
+  background(tan);
 
-  // will call your state machine function
+  // Debug Mode
+  if( gDebugMode == true ) {
+    drawDebugInfo();
+  }
+
   drawFunction();
 }
 
-//========= TEMPLATE: modify these functions, INSIDE the function blocks only =========
-
 //-- drawOne() will draw the image at index 0 from the array
-drawOne = function() {
-   image(images[0],width/2, height/2);
+drawQuestionOne = function() {
 
-   fill(0,0,0);
-   text("State One", width/2, height - gTextOffset);
+  // Answer Outlines
+   strokeWeight(1);
+   fill(tan);
+   stroke(yellow);
+   rect(midX - 420, midY + 26, 360, 180);
+   rect(midX + 60, midY + 26, 360, 180);
+
+  // Question Number
+   strokeWeight(0);
+   textSize(32);
+   fill(purple);
+   fill(0);
+   textAlign(CENTER);
+   text("QUESTION ONE", midX, midY - 200);
+
+   // Key Selection
+   text("Press A", midX - 240, midY + 160);
+   text("Press B", midX + 240, midY + 160);
+
+   // Question
+   fill(0);
+   textSize(70);
+   text("I prefer to spend time with ___.", midX, midY - 90);
+
+   // Answer Choices
+   textSize(56);
+   text("Myself", midX - 240, midY + 100);
+   text("Others", midX + 240, midY + 100);
+
+
 }
 
 //-- drawTwo() will draw the image at index 1 from the array
-drawTwo = function() {
-   image(images[1],width/2, height/2);
+drawQuestionTwo = function() {
 
    fill(240,120,0);
-   text("State Two", width/2, height - gTextOffset);
+   text("Q2", width/2, height - gTextOffset);
 }
 
 //-- drawOne() will draw the image at index 2 from the array
-drawThree = function() {
-   image(images[2],width/2, height/2);
-
+drawQuestionThreeA = function() {
+  
    fill(40,230,120);
-   text("State Three", width/2, height - gTextOffset);
+   text("Q3a", width/2, height - gTextOffset);
 }
 
 //-- drawOne() will draw the image at index 3 from the array
-drawFour = function() {
-   image(images[3],width/2, height/2);
+drawQuestionThreeB = function() {
 
    fill(255,255,178);
-   text("State Four", width/2, height - gTextOffset);
+   text("Q3b", width/2, height - gTextOffset);
 }
 
-//-- drawOne() will draw the image at index 4 from the array
-drawFive = function() {
-   image(images[4],width/2, height/2);
+//-- Drawing the final results page: Lounge, Fiberglass, Wire, LCW
+drawLounge = function() {
 
    fill(230,50,50);
-   text("State Five", width/2, height - gTextOffset);
+   text("Lounge", width/2, height - gTextOffset);
 }
 
+drawFiberglass = function() {
+
+   fill(230,50,50);
+   text("Fiberglass", width/2, height - gTextOffset);
+}
+
+drawWire = function() {
+
+   fill(230,50,50);
+   text("Wire", width/2, height - gTextOffset);
+}
+
+drawLCW = function() {
+
+   fill(230,50,50);
+   text("LCW", width/2, height - gTextOffset);
+}
 //-- drawSplash() will draw the image at index 4 from the array
 drawSplash = function() {
-   image(images[5],width/2, height/2);
+   fill(0);
+   text("Splash", width/2, height - gTextOffset);
+}
+
+drawQuote = function() {
+   fill(0);
+   text("Quote", width/2, height - gTextOffset);
+}
+
+drawInstructions = function() {
+  fill(0);
+  text("Instructions", width/2, height - gTextOffset);
 }
 
 
-//========= TEMPLATE: add or change interface functions, as you like =========
 
-// Change the drawFunction variable based on your interaction
+// Associating keys typed (user's answers) to next question based on question tree
 function keyTyped() {
-  if( drawFunction === drawSplash ) {
-    return;
+
+  if( drawFunction === drawQuestionOne ) {
+    if(key === 'a') {
+      drawFunction = drawQuestionTwo;
+    }
+    else if(key === 'b') {
+      drawFunction = drawQuestionTwo;
+    }
   }
 
-  if( key === '1' ) {
-  	drawFunction = drawOne;
-  }
-  else if( key === '2' ) {
-  	drawFunction = drawTwo;
-  }
-  else if( key === '3' ) {
-  	drawFunction = drawThree;
-  }
-  else if( key === '4' ) {
-  	drawFunction = drawFour;
-  }
-  else if( key === '5' ) {
-  	drawFunction = drawFive;
+  if( drawFunction === drawQuestionTwo ) {
+    if(key === 'c') {
+      drawFunction = drawQuestionThreeA;
+    }
+    else if(key === 'd') {
+      drawFunction = drawQuestionThreeB;
+    }
   }
 
-  else if( key === 's' ) {
-    drawFunction = drawSplash;
+  if( drawFunction === drawQuestionThreeA ) {
+    if(key === 'e') {
+      drawFunction = drawLounge;
+    }
+    else if(key === 'f') {
+      drawFunction = drawFiberglass;
+    }
   }
+
+  if( drawFunction === drawQuestionThreeB ) {
+    if(key === 'g') {
+      drawFunction = drawWire;
+    }
+    else if(key === 'h') {
+      drawFunction = drawLCW;
+    }
+  }
+
+
 }
 
 function mousePressed() {
   // only change state if we are in splash screen
   if( drawFunction === drawSplash ) {
-    drawFunction = drawOne;
+    drawFunction = drawQuote;
   }
+  else if( drawFunction === drawQuote ) {
+    drawFunction = drawInstructions;
+  }
+  else if( drawFunction === drawInstructions ) {
+    drawFunction = drawQuestionOne;
+  }
+}
+
+//Draw debug mode
+function drawDebugInfo() {
+  fill(255);
+  noStroke()
+  text("x: " + mouseX + "  Y: " + mouseY, 100, height - 60);
 }
