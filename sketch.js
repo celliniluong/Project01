@@ -8,22 +8,30 @@
 ***********************************************************************************/
 
 // Global Variables
-var gDebugMode = true;
+
+//Debug Mode
+var gDebugMode = false;
+
+//Array of images
 var images = [];
 var drawFunction;
-var gTextOffset = 20;
 
+// Variables for placement
 var midX;
 var midY;
 
+// Color variables
 var tan, blue, red, yellow, purple;
 
+// Font variables
 var fontThin;
 var fontBold;
 
 
 // load all images into an array
 function preload() {
+  
+  // PNG of illustrations
   images[0] = loadImage('assets/Wire.png');
   images[1] = loadImage('assets/LCW.png');
   images[2] = loadImage('assets/Fiberglass.png');
@@ -33,16 +41,16 @@ function preload() {
   images[6] = loadImage('assets/SFiberglass.png');
   images[7] = loadImage('assets/SLounge.png');
 
+  // Loading Fonts
   fontThin = loadFont('assets/FontThin.ttf');
   fontBold = loadFont('assets/FontBold.otf');
   fontThinner = loadFont('assets/fontThinner.ttf');
   
 }
 
-// Center drawing, drawFunction will be one for default
+// Setting up canvas
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  textFont('fontThin');
 
   // Setting colors
   tan = color(239, 233, 225);
@@ -55,13 +63,14 @@ function setup() {
   midX = windowWidth/2;
   midY = windowHeight/2;
 
-  // Center our drawing objects
+  // Text and image setup
   imageMode(CENTER);
   textAlign(CENTER);
   textSize(24);
+  textFont('fontThin');
 
   // Setting Splash as initial screen
-  drawFunction = drawWire;
+  drawFunction = drawSplash;
 }
 
 // Background, Debug, Calling Simple States
@@ -329,7 +338,7 @@ drawSplash = function() {
    textFont('FontBold');
    textSize(180);
 
-   text("EAMES", midX - 20, midY + 40);
+   text("EAMES", midX - 10, midY + 40);
 
    // Description
    textAlign(LEFT);
@@ -337,7 +346,7 @@ drawSplash = function() {
    textSize(64);
 
    let t = "A personality test for chair enthusiast";
-   text(t, midX + 20, midY - 90, 550, 300);
+   text(t, midX + 30, midY - 90, 550, 300);
 
    // Instructions
    textSize(32);
@@ -367,8 +376,25 @@ drawQuote = function() {
 
 // Instruction Screen
 drawInstructions = function() {
-  fill(0);
-  text("Instructions", width/2, height - gTextOffset);
+
+   // Header
+   textAlign(CENTER);
+   fill(blue);
+   textSize(70);
+   text("INSTRUCTIONS", midX, midY - 100);
+
+   // Description
+   fill(0);
+   textSize(32);
+   textLeading(60);
+
+   let t = "Answer questions about yourself to reveal your Eames chair type. Press the corresponding key below each answer choice to select.";
+   text(t, midX - 475, midY - 40, 950, 300);
+
+   // Instruction
+   fill(red);
+   text("Click this screen to START", midX, midY + 120);
+
 }
 
 
