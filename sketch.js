@@ -2,8 +2,10 @@
 	Projec01 - Eames Personality Test
 	by Cellini Luong
 
-  By using simple states, I will create a non-linear interaction taking users through a personality test to
-  determine which Eames chair style matches their personality the best.
+  	As a tribute to legendary designers, Charles and Ray Eames, I have created an Eames chair personality test.
+  	This interaction will take place as an online quiz and is designed for mid-century modern lovers and chair enthusiasts.
+  	Though every Eames chair shares a similar modern, yet functional quality, they undoubtedly each have their own uniqueness to them.
+  	This personality quiz will ask you questions in order to determine which chair resonates the most with your personality.
 
 ***********************************************************************************/
 
@@ -27,7 +29,6 @@ var tan, blue, red, yellow, purple;
 var fontThin;
 var fontBold;
 
-
 // load all images into an array
 function preload() {
   
@@ -45,7 +46,6 @@ function preload() {
   fontThin = loadFont('assets/FontThin.ttf');
   fontBold = loadFont('assets/FontBold.otf');
   fontThinner = loadFont('assets/fontThinner.ttf');
-  
 }
 
 // Setting up canvas
@@ -226,7 +226,6 @@ drawLounge = function() {
    textFont('FontBold');
    textSize(64);
    textAlign(LEFT);
-
    text("Eames Lounge Chair + Ottoman", midX + 2, midY - 182, 520, 500);
 
   // H3
@@ -234,13 +233,11 @@ drawLounge = function() {
    textFont('FontThin');
    textSize(30);
    textAlign(LEFT);
-
    text("Your personality type is a match for:", midX + 2 , midY - 214);
 
    // H2
    fill(0);
    textLeading(44);
-
    let t = "The powerful soloist. The Eames Lounge Chair has the ability to complement any interior with its soft, yet sleek build. A truly timeless piece that proves comfort and style do not have to be mutually exclusive.";
    text(t, midX + 2, midY - 4, 580, 550);
 }
@@ -254,7 +251,6 @@ drawFiberglass = function() {
    textFont('FontBold');
    textSize(64);
    textAlign(LEFT);
-
    text("Eames Molded Fiberglass Chair", midX - 10, midY - 182, 520, 500);
 
   // H3
@@ -262,13 +258,11 @@ drawFiberglass = function() {
    textFont('FontThin');
    textSize(30);
    textAlign(LEFT);
-
    text("Your personality type is a match for:", midX - 10 , midY - 214);
 
    // H2
    fill(0);
    textLeading(44);
-
    let t = "An iconic design. The Molded Fiberglass Chair charts the Eameses’ fascination with emerging materials. This legendary design will bring sculptural integrity to any room or corner.";
    text(t, midX - 10, midY - 4, 580, 550);
 }
@@ -282,7 +276,6 @@ drawWire = function() {
    textFont('FontBold');
    textSize(64);
    textAlign(LEFT);
-
    text("Eames Wire Chair w/ Bikini Pad", midX - 10, midY - 142, 580, 500);
 
   // H3
@@ -290,13 +283,11 @@ drawWire = function() {
    textFont('FontThin');
    textSize(30);
    textAlign(LEFT);
-
    text("Your personality type is a match for:", midX - 10 , midY - 174);
 
    // H2
    fill(0);
    textLeading(44);
-
    let t = "Minimal and masculine. The Eames Wire Chair w/ Bikini Pad adds an industrial touch to any open space. Its permeable nature and soft padding form a harmonic balance.";
    text(t, midX - 10, midY + 24, 580, 550);
 }
@@ -310,7 +301,6 @@ drawLCW = function() {
    textFont('FontBold');
    textSize(64);
    textAlign(LEFT);
-
    text("Eames Molded Plywood LCW", midX - 10, midY - 182, 580, 500);
   
   // H3
@@ -318,13 +308,11 @@ drawLCW = function() {
    textFont('FontThin');
    textSize(30);
    textAlign(LEFT);
-
    text("Your personality type is a match for:", midX - 10 , midY - 214);
 
    // H2
    fill(0);
    textLeading(44);
-
    let t = "Molded magnificence. Low-slung and expertly crafted, the LCW cradles you in a comfortable position. The flat planes and curvaceous nature bring an elegant simplicity to any room.";
    text(t, midX - 10, midY - 4, 540, 550);
 }
@@ -337,14 +325,12 @@ drawSplash = function() {
    textAlign(RIGHT);
    textFont('FontBold');
    textSize(180);
-
    text("EAMES", midX - 10, midY + 40);
 
    // Description
    textAlign(LEFT);
    textFont('fontThin');
    textSize(64);
-
    let t = "A personality test for chair enthusiast";
    text(t, midX + 30, midY - 90, 550, 300);
 
@@ -397,11 +383,10 @@ drawInstructions = function() {
 
 }
 
-
-
 // Associating keys typed (user's answers) to next question based on question tree
 function keyTyped() {
 
+  // Navigation - Q1
   if( drawFunction === drawQuestionOne ) {
     if(key === 'a') {
       drawFunction = drawQuestionTwo;
@@ -411,6 +396,7 @@ function keyTyped() {
     }
   }
 
+  // Navigation - Q2
   if( drawFunction === drawQuestionTwo ) {
     if(key === 'c') {
       drawFunction = drawQuestionThreeA;
@@ -420,6 +406,7 @@ function keyTyped() {
     }
   }
 
+  // Navigation - Q3A
   if( drawFunction === drawQuestionThreeA ) {
     if(key === '1') {
       drawFunction = drawLounge;
@@ -429,6 +416,7 @@ function keyTyped() {
     }
   }
 
+  // Navigation - Q3B
   if( drawFunction === drawQuestionThreeB ) {
     if(key === 'x') {
       drawFunction = drawWire;
@@ -437,12 +425,10 @@ function keyTyped() {
       drawFunction = drawLCW;
     }
   }
-
-
 }
 
 function mousePressed() {
-  // only change state if we are in splash screen
+  // Navigation - Splash, Quote, Instrutions
   if( drawFunction === drawSplash ) {
     drawFunction = drawQuote;
   }
