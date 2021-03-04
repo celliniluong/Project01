@@ -304,7 +304,7 @@ drawLCW = function() {
    text("Eames Molded Plywood LCW", midX - 10, midY - 182, 580, 500);
   
   // H3
-   fill(yellow);
+   fill(0);
    textFont('FontThin');
    textSize(30);
    textAlign(LEFT);
@@ -374,12 +374,12 @@ drawInstructions = function() {
    textSize(32);
    textLeading(60);
 
-   let t = "Answer questions about yourself to reveal your Eames chair type. Press the corresponding key below each answer choice to select.";
+   let t = "Answer questions about yourself to reveal your Eames chair type. Press the corresponding key below each answer choice to select. Once completed, click the screen to start over.";
    text(t, midX - 475, midY - 40, 950, 300);
 
    // Instruction
    fill(red);
-   text("Click this screen to START", midX, midY + 120);
+   text("Click this screen to START", midX, midY + 170);
 
 }
 
@@ -437,6 +437,18 @@ function mousePressed() {
   }
   else if( drawFunction === drawInstructions ) {
     drawFunction = drawQuestionOne;
+  }
+  else if ( drawFunction === drawLounge ) {
+  	 drawFunction = drawSplash;
+  }
+  else if ( drawFunction === drawWire ) {
+  	 drawFunction = drawSplash;
+  }
+  else if ( drawFunction === drawLCW ) {
+  	 drawFunction = drawSplash;
+  }
+  else if ( drawFunction === drawFiberglass ) {
+  	 drawFunction = drawSplash;
   }
 }
 
